@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Receiver Service API
+  description: API for receiving and processing user data
+  version: 1.0.0
+  contact:
+    name: Development Team
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+tags:
+  - name: User Data
+    description: Operations for handling user data
+paths:
+  /receiver:
+    post:
+      tags:
+        - User Data
+      summary: Receive user data
+      description: Endpoint to receive and process user data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user
+                - class
+                - age
+                - email
+              properties:
+                user:
+                  type: string
+                  example: "John Doe"
+                  description: "User's full name"
+                class:
+                  type: string
+                  example: "Comics"
+                  description: "User's class category"
+                age:
+                  type: integer
+                  minimum: 0
+                  example: 25
+                  description: "User's age"
+                email:
+                  type: string
+                  format: email
+                  example: "john@example.com"
+                  description: "User's email address"
+      responses:
+        "201":
+          description: Data received and processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: "Unique identifier for the record"
+                  user:
+                    type: string
+                  class:
+                    type: string
+                  age:
+                    type: integer
+                  email:
+                    type: string
+                  inserted_at:
+                    type: string
+                    format: date-time
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        msg:
+                          type: string
+                        param:
+                          type: string
+                        location:
+                          type: string
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Rate limit exceeded"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Internal server error"

@@ -1,0 +1,38 @@
+{
+  "name": "microservices-app",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Sandeep Kushwaha <thesandeepkushwaha@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "build:all": "pnpm --recursive run build",
+    "test": "pnpm test --recursive",
+    "dev": "pnpm -r run dev",
+    "clean": "rm -rf dist node_modules/.cache",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json,md}\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "redis": "^4.6.0",
+    "express-validator": "^7.0.0",
+    "body-parser": "^1.20.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.0.0",
+    "@types/uuid": "^9.0.0",
+    "typescript": "^5.0.0",
+    "nx": "^16.0.0",
+    "@nrwl/nx-cloud": "latest",
+    "wsrun": "^5.2.4"
+  },
+  "packageManager": "pnpm@8.9.0"
+}
